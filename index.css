@@ -13,7 +13,7 @@ button {
 
 .AltBlog_UI_NavBar{
     padding: 8px;
-    position: fixed;
+    position: sticky;
     width: 100%;
     top: 0;
     display: flex;
@@ -98,6 +98,8 @@ button {
     color: white;
     background-color: #303030;
     flex: 1;
+    background-size: cover;
+    background-repeat: no-repeat
 }
 
 .AltBlog_Card h1{
@@ -130,6 +132,8 @@ button {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat
 }
 .AltBlog_Editor_Header span.tag, .AltBlog_Editor_Header h1, .AltBlog_Editor_Header h2, .AltBlog_Editor_Header-Commands, .AltBlog_Editor_Byline, .AltBlog_Editor_Hashtags{
     width: 100%;
