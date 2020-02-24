@@ -1,5 +1,5 @@
 # altBlog
-AltBlog is a javascript client-side engine for blog development, used in Watermelon, Quanta Blog, El Rayo, etc. 
+[Ctrl Alt Tec](https://ctrl-alt-tec.hackclub.com) altBlog is a javascript client-side engine for blog development, used in Watermelon, Quanta Blog, El Rayo, etc. 
 
 ## Getting started
 ### Include files
@@ -62,7 +62,7 @@ To contribute to this repo, you must first fork it and make a pull request. Beca
 
 
 ## Credits
-altBlog is free software developed by Ctrl Alt Tec by @louloubadillo and @edvilme in its initial release.
+altBlog is free software developed by Ctrl Alt Tec by [@louloubadillo](https://github.com/louloubadillo) and [@edvilme](https://github.com/edvilme) in its initial release.
 
 altBlog.Editor is built upon [codex editor.js](https://github.com/codex-team/editor.js)
 Further contributions will also be listed below
