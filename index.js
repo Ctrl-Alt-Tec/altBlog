@@ -253,7 +253,7 @@ AltBlog.Editor = class{
                     class: Embed, 
                     inlineToolbar: true,
                 },
-                math: Latex
+                //math: Latex
             },
             placeholder: "Empiece a escribir o presione tab para añadir contenido", 
             holder: this.editor_cont,
