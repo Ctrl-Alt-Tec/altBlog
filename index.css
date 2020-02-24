@@ -1,0 +1,184 @@
+html, body{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+button {
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+}
+
+.AltBlog_UI_NavBar{
+    padding: 8px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    border-bottom: 1px solid rgb(200,200,200);
+    background: white;
+    flex-wrap: wrap;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    z-index: 10;
+    align-items: center;
+}
+
+.AltBlog_Cont{
+    padding-top: 80px;
+}
+
+.AltBlog_UI_NavBar>*{
+    margin: 0px 4px;
+}
+
+.AltBlog_UI_NavBar img{
+    height: 56px;
+}
+
+.AltBlog_UI_NavBar input[type="search"]{
+    font-size: 1.5em;
+    padding: 8px;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    background: rgb(240,240,240);
+    flex: 2;
+}
+.AltBlog_UI_NavBar .AltBlog_UI_NavBar-Nav{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+}
+.AltBlog_UI_NavBar .AltBlog_UI_NavBar-Nav span {
+    font-size: 1.2em;
+    padding: 8px;
+    margin: 8px;
+    flex: 1;
+}
+
+.AltBlog_UI_NavBar .AltBlog_UI_NavBar-Nav span.active {
+    font-weight: 600;
+    border-bottom: 2px solid;
+}
+
+.AltBlog_UI_NavBar .AltBlog_UI_Navbar-User {
+    background: black;
+    margin: 4px;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+}
+
+.AltBlog_UI_Tag{
+    padding: 4px;
+    margin: 2px;
+    border-radius: 2px;
+    background: rgb(200,200,200);
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    font-size: 1em;
+}
+
+.AltBlog_Card{
+    padding: 16px;
+    margin: 8px;
+    border-radius: 8px;
+    min-width: 320px;
+    height: 18rem;
+    font-size: medium;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+    background-color: #303030;
+    flex: 1;
+}
+
+.AltBlog_Card h1{
+    font-size: 2rem;
+    line-height: 1.1;
+    font-weight: 600;
+    margin: 0;
+}
+
+.AltBlog_Card span {
+    font-size: 1.5rem;
+}
+
+.AltBlog_Editor_Cont{
+    width: 100%;
+    height: 100%;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+.AltBlog_Editor_Header{
+    background: slategray;
+    min-height: 400px;
+    height: 60vh;
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+.AltBlog_Editor_Header span.tag, .AltBlog_Editor_Header h1, .AltBlog_Editor_Header h2, .AltBlog_Editor_Header-Commands, .AltBlog_Editor_Byline, .AltBlog_Editor_Hashtags{
+    width: 100%;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.AltBlog_Editor_Header h1{
+    font-size: 3em;
+    margin: 0px
+}
+
+.AltBlog_Editor_Header span.tag, .AltBlog_Card span.tag{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    padding-bottom: 0.5em;
+    border-bottom: 0.5px dotted white;
+    margin-bottom: 0.5em;
+}
+
+.AltBlog_Editor_Byline{
+    margin: 8px auto;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid rgba(200,200,200,0.8)
+}
+
+.AltBlog_Editor_Header-Commands{
+    margin: 16px auto;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: rgb(220,220,220,0.3);
+    width: 100%;
+    max-width: 650px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+}
+
+.AltBlog_FAB{
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background-color: green;
+    margin: 16px;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
