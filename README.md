@@ -2,6 +2,7 @@
 AltBlog is a javascript client-side engine for blog development, used in Watermelon, Quanta Blog, El Rayo, etc. 
 
 ## Getting started
+### Include files
 In index.html, include the following scripts
 
 ```
@@ -15,6 +16,15 @@ In index.html, include the following scripts
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+```
+### Setup
+Instantiate altBlog with configuration options listed below
+```
+let Blog = new altBlog(options);
+```
+To start the blog, simply run
+```
+Blog.getData().then(()=>{Blog.showPosts()})
 ```
 
 ## Configuration
