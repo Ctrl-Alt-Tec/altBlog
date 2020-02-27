@@ -189,11 +189,12 @@ AltBlog.Editor = class{
         this._altBlog = _altBlog;
         this.isNew = post.id == undefined;
 
-        if(this.isNew && AltBlog.currentUser){
-            this.post.author = AltBlog.currentUser??email;
-        }
-
         this.isEditable = this.post.author == (AltBlog??currentUser.email);
+
+        if(this.isNew && AltBlog.currentUser){
+            this.post.author = AltBlog.currentUser.email;
+            this.isEditable = true; 
+        }
 
         console.log(this.isEditable)
 
