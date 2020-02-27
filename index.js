@@ -92,7 +92,13 @@ class AltBlog{
             title.innerHTML = "¡Hola, usuario!";
             let subtitle = document.createElement('h2');
             subtitle.innerHTML = "Acá podrás encontrar info relacionada con tu cuenta. WIP";
-            this.dom.append(title, document.createElement('hr'), subtitle)
+            let signout = document.createElement('button');
+            signout.classList.add('AltBlog_UI_signout');
+            signout.innerHTML = "Cerrar sesión";
+            signout.addEventListener('click', ()=>{
+                this.props??signout();
+            })
+            this.dom.append(title, document.createElement('hr'), subtitle, document.createElement('hr'), signout)
         } else {
             let form = new AltBlog.UI.SignInForm((username, password)=>{ this.props.login(username, password);  setTimeout(()=>{this.setPageUser()}, 10000) });
             this.dom.append(form.dom) 
@@ -183,11 +189,11 @@ AltBlog.Editor = class{
         this._altBlog = _altBlog;
         this.isNew = post.id == undefined;
 
-        if(this.isNew && AltBlog.currentUser.email){
-            this.post.author = AltBlog.currentUser.email
+        if(this.isNew && AltBlog.currentUser){
+            this.post.author = AltBlog.currentUser??email;
         }
 
-        this.isEditable = this.post.author == (AltBlog.currentUser.email);
+        this.isEditable = this.post.author == (AltBlog??currentUser.email);
 
         console.log(this.isEditable)
 
@@ -452,7 +458,6 @@ AltBlog.UI.FeedbackScreen = class{
     constructor(type, _title, subtitle){
         this.dom = document.createElement('div');
         this.dom.classList.add('AltBlog_UI_FeedbackScreen');
-
         let backgroundColor;
         switch(type){
             case 'success':
@@ -464,18 +469,13 @@ AltBlog.UI.FeedbackScreen = class{
             default:
                 backgroundColor = 'rgb(255, 255, 255, 0.9)';
         }
-
         this.dom.style.backgroundColor = backgroundColor;
-
         let title = document.createElement('h1');
         title.innerText = _title;
         this.dom.append(title);
-
         this.dom.addEventListener('click', ()=>{ this.destroy() });
-
         document.body.append(this.dom);
-
-        //setTimeout(()=>{ this.destroy() }, 5000);
+        setTimeout(()=>{ this.destroy() }, 5000);
 
 
     }

@@ -144,7 +144,7 @@ hr {
     padding: 8px
 }
 
-.AltBlog_UI_SignInForm button{
+.AltBlog_UI_SignInForm button, .AltBlog_UI_signout{
     font-size: 1.2em;
     background: black;
     color: white;
