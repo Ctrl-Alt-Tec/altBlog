@@ -11,6 +11,20 @@ button {
     border: none;
 }
 
+hr {
+    flex-basis: 100%;
+    height: 0px;
+    margin: 16px 8px;
+    border: 0.5px solid rgb(200,200,200)
+}
+
+
+.AltBlogDOM{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .AltBlog_UI_NavBar{
     padding: 8px;
     position: sticky;
@@ -84,6 +98,60 @@ button {
     font-size: 1em;
 }
 
+.AltBlog_UI_FeedbackScreen{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    top: 0;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
+.AltBlog_UI_FeedbackScreen h1{
+    font-size: 4em;
+    color: white;
+    font-weight: 800;
+}
+
+.AltBlog_UI_SignInForm{
+    padding: 16px;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: white;
+    margin: 16px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.AltBlog_UI_SignInForm h1{
+    width: 100%;
+    color: black;
+    margin: 8px;
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+
+.AltBlog_UI_SignInForm input{
+    margin: 8px;
+    font-size: 1.2em;
+    flex: 1;
+    padding: 8px
+}
+
+.AltBlog_UI_SignInForm button{
+    font-size: 1.2em;
+    background: black;
+    color: white;
+    padding: 16px;
+    border-radius: 100px;
+}
+
 .AltBlog_Card{
     padding: 16px;
     margin: 8px;
@@ -132,7 +200,7 @@ button {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    background-size: cover;
+    background-size: cover !important;
     background-repeat: no-repeat
 }
 .AltBlog_Editor_Header span.tag, .AltBlog_Editor_Header h1, .AltBlog_Editor_Header h2, .AltBlog_Editor_Header-Commands, .AltBlog_Editor_Byline, .AltBlog_Editor_Hashtags{

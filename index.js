@@ -2,7 +2,7 @@
 ** altBlog client-side blog platform using javascript
 ** Developed 2020 by Ctrl Alt Tec
 ** Authors: @louloubadillo, @edvilme
-** version 1.0 beta
+** version 1.0.1 beta 
 */
 class AltBlog{
     //static Card;
@@ -23,15 +23,19 @@ class AltBlog{
         this.props = props;
         AltBlog.Constants.sections = props.sections;
         AltBlog.Constants.name = props.name ? props.name : location.hostname;
-        AltBlog.currentUser = props.currentUser ? props.currentUser : {email: undefined};
-
+        AltBlog.currentUser = props.currentUser ? props.currentUser : undefined;
         this.dom = document.querySelector("#BlogContainer");
+        this.dom.classList.add('AltBlogDOM')
         window.onpopstate = (event)=>{
             this.navigationSetContent(event.state.page, event.state.args)
         };
-
         this.navBar = new AltBlog.UI.NavBar(props.navBar, this)
-        
+        let credit = document.createElement('p');
+        credit.style.width = "100%";
+        credit.style.textAlign = "center";
+        credit.style.margin = "8px";
+        credit.innerHTML = `Made with <a href="https://gihtub.com/Ctrl-Alt-Tec/altBlog">altBlog</a>, with ❤ by <a href="https://ctrl-alt-tec.hackclub.com ">Ctrl Alt Tec</a>`;
+        document.body.append(credit)
     }
 
     navigationPushContent(page=null, args=null){
@@ -81,11 +85,17 @@ class AltBlog{
     }
 
     setPageUser(){
-        if(AltBlog.currentUser && AltBlog.currentUser.email){
-            this.dom.innerHTML = "User!"
+        this.dom.innerHTML = "";
+        if(AltBlog.currentUser){
+            this.dom.innerHTML = "";
+            let title = document.createElement('h1');
+            title.innerHTML = "¡Hola, usuario!";
+            let subtitle = document.createElement('h2');
+            subtitle.innerHTML = "Acá podrás encontrar info relacionada con tu cuenta. WIP";
+            this.dom.append(title, document.createElement('hr'), subtitle)
         } else {
-            this.dom.innerHTML = "Please sign in"
-            this.signin()
+            let form = new AltBlog.UI.SignInForm((username, password)=>{ this.props.login(username, password);  setTimeout(()=>{this.setPageUser()}, 10000) });
+            this.dom.append(form.dom) 
         }
     }
 
@@ -106,7 +116,10 @@ class AltBlog{
             this.navigationPushContent('post', 'new');
  
         })
-        this.dom.append(newPost);
+
+        if(AltBlog.currentUser){
+            this.dom.append(newPost);
+        }
     }
 
 
@@ -123,10 +136,13 @@ class AltBlog{
 
     updatePost(id, post){
         this.props.update(id, post);
+        new AltBlog.UI.FeedbackScreen('success', 'El post se ha actualizado')
     }
 
     createPost(post){
         this.props.create(post);
+        new AltBlog.UI.FeedbackScreen('success', 'El post ha sido creado')
+
     }
 
     async fileUploadAndGetUrl(stream, name){
@@ -167,18 +183,14 @@ AltBlog.Editor = class{
         this._altBlog = _altBlog;
         this.isNew = post.id == undefined;
 
-        if(this.isNew){
-            if(AltBlog.currentUser){
-                this.post.author = AltBlog.currentUser.email
-            } else {
-                _altBlog.signin()
-                this.post.author = AltBlog.currentUser.email
-            }
+        if(this.isNew && AltBlog.currentUser.email){
+            this.post.author = AltBlog.currentUser.email
         }
-        
-        
-        this.isEditable = this.post.author == AltBlog.currentUser.email;
-        
+
+        this.isEditable = this.post.author == (AltBlog.currentUser.email);
+
+        console.log(this.isEditable)
+
         this.dom = document.createElement('div');
         this.dom.classList.add('AltBlog_Editor_Cont');
 
@@ -238,6 +250,10 @@ AltBlog.Editor = class{
             tools: { 
                 header: Header,
                 image: SimpleImage,
+                /*image: {
+                    class: ImageTool,
+
+                },*/
                 list: {
                     class: List,
                     inlineToolbar: true,
@@ -340,7 +356,9 @@ AltBlog.Editor.Tags = class{
 AltBlog.UI = {
     PostCommnands: null,
     NavBar: null,
-    Tag: null
+    Tag: null,
+    FeedbackScreen: null,
+    SignInForm: null
 }
 
 AltBlog.UI.PostCommands = class{
@@ -426,6 +444,69 @@ AltBlog.UI.Tag = class{
         this.dom.classList.add('AltBlog_UI_Tag');
 
         this.dom.innerHTML=value;
+
+    }
+}
+
+AltBlog.UI.FeedbackScreen = class{
+    constructor(type, _title, subtitle){
+        this.dom = document.createElement('div');
+        this.dom.classList.add('AltBlog_UI_FeedbackScreen');
+
+        let backgroundColor;
+        switch(type){
+            case 'success':
+                backgroundColor = 'rgb(052, 199, 089, 0.9)';
+                break;
+            case 'error':
+                backgroundColor = 'rgb(255, 045, 085, 0.9)';
+                break;
+            default:
+                backgroundColor = 'rgb(255, 255, 255, 0.9)';
+        }
+
+        this.dom.style.backgroundColor = backgroundColor;
+
+        let title = document.createElement('h1');
+        title.innerText = _title;
+        this.dom.append(title);
+
+        this.dom.addEventListener('click', ()=>{ this.destroy() });
+
+        document.body.append(this.dom);
+
+        //setTimeout(()=>{ this.destroy() }, 5000);
+
+
+    }
+    destroy(){
+        document.body.removeChild(this.dom);
+    }
+}
+
+AltBlog.UI.SignInForm = class{
+    constructor(login){
+        this.dom = document.createElement('div');
+        this.dom.classList.add('AltBlog_UI_SignInForm');
+
+        let title = document.createElement('h1');
+        title.innerText = "Iniciar Sesión";
+
+        let username = document.createElement('input');
+        username.placeholder = 'username';
+
+        let password = document.createElement('input');
+        password.type = 'password';
+        password.placeholder = 'password';
+
+        let submit = document.createElement('button');
+        submit.innerHTML = 'Iniciar Sesión';
+
+        submit.addEventListener('click', ()=>{
+            login(username.value, password.value)
+        })
+
+        this.dom.append(title, username, password, document.createElement('hr'), submit)
 
     }
 }
