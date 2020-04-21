@@ -1,6 +1,12 @@
 # altBlog
 [Ctrl Alt Tec](https://ctrl-alt-tec.hackclub.com) altBlog is a javascript client-side engine for blog development, used in Watermelon, Quanta Blog, El Rayo, etc. 
 
+
+# IMPORTANT
+
+> As of april 21, v1 of altBlog is deprecated. For retrocompatibility reasons, the current directory will be kept as-is. Please head to v2. 
+
+
 ## Getting started
 ### Include files
 In index.html, include the following scripts
