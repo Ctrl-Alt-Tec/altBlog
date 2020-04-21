@@ -127,6 +127,14 @@ class Blog{
             this.openEditor();
         })
 
+
+        let footer = document.createElement('footer');
+        footer.innerHTML = `<p style="text-align: center">
+            Made with <a href="https://github.com/Ctrl-Alt-Tec/altBlog">altBlog</a> + 💙
+        </p>` 
+        document.body.parentElement.append(footer)
+
+
     }
     async getPosts(src){
         let posts = await fetch(src)
