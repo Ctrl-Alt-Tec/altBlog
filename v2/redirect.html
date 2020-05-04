@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>altBlog GitHub Login</title>
+		<script>
+			let code = new URL(window.location.href).searchParams.get("code")
+			let state = new URL(window.location.href).searchParams.get("state")
+			let altBlog = new URL(window.location.href).searchParams.get("altblog")
+			
+			
+			window.location.replace( `${altBlog}?code=${code}&state=${state}` )
+			
+		</script>
+	</head>
+	<body>
+		<h1>
+			Logged in, redirecting...
+		</h1>
+	</body>
+</html>
