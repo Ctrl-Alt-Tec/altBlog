@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>altBlog GitHub Login</title>
+		<title>altBlog OAuth GitHub Login</title>
 		<script>
 			let code = new URL(window.location.href).searchParams.get("code")
 			let state = new URL(window.location.href).searchParams.get("state")
@@ -13,7 +13,7 @@
 				state: state
 			}
 			
-			fetch('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token'+new URLSearchParams(req).toString(),{
+			fetch('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token?'+new URLSearchParams(req).toString(),{
 				method: 'POST', 
 				headers: {
 					'Origin': 'https://ctrl-alt-tec.gihtub.io/'
@@ -28,7 +28,7 @@
 	</head>
 	<body>
 		<h1>
-			Logged in, redirecting...
+			Logged in, please wait...
 		</h1>
 	</body>
 </html>
