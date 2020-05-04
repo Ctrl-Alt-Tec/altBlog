@@ -222,6 +222,7 @@ class Blog{
     }
 
     openEditor(){
+        let modified = false;
         this.closePost();
         document.querySelector('#navbar span[name="new_article"]').style.display='none';
         this.container.style.display='none';
@@ -232,7 +233,11 @@ class Blog{
 
         document.querySelector('#navbar [name="nav_button"]').style.display = 'block';
         document.querySelector('#navbar [name="nav_button"]').onclick = ()=>{
-            if(confirm("Changes won't be saved. Leave?")){
+            if(modified){
+                if(confirm("Unsaved changes. Leave?")){
+                    this.closePost()
+                }
+            } else {
                 this.closePost()
             }
         }
@@ -241,7 +246,14 @@ class Blog{
         code.innerHTML = defaultEditorContent
         let preview = document.createElement('div');
         preview.className = 'editor-preview';
-        this.editor_container.append(code, preview);
+
+        let upload = document.createElement('button');
+        upload.setAttribute('name', 'upload');
+        let upload_text = window.localStorage.getItem('access_token') == null ? 'Sign in with GitHub' : 'publish'
+        upload.innerHTML = `
+            <span class="material-icons">add_circle</span> <span>${upload_text}</span>
+        `
+        this.editor_container.append(code, preview, upload);
         let converter = new showdown.Converter({
             ghCompatibleHeaderId: true,
             strikethrough: true, 
@@ -261,8 +273,69 @@ class Blog{
             })
         }
         getHTML()
-        code.addEventListener('input', getHTML)
+        code.addEventListener('input', ()=>{
+            modified = true
+            getHTML()
+        })
+        upload.addEventListener('click', ()=>{
+            if(confirm("Upload file?")){
+                this.pushToGitHub(code.value)
+                modified = false
+            }
+        })
+    }
 
+    signIn(){
+        if(window.localStorage.getItem('access_token') == null){
+            let source = 'https://github.com/login/oauth/authorize?client_id=843edc56c34e74fe4beb&scope=repo&state='+ window.location.href.replace(window.location.search, "")+encodeURIComponent("?post=new")
+            let popup = window.open(source, null, "channelmode=true")
+
+            window.addEventListener('message', (e)=>{
+                window.localStorage.setItem('access_token', e.data)
+            })
+        } else {
+            return true
+        }
+    }
+
+    async pushToGitHub(content){
+        let doUpload = true;
+        if(window.localStorage.getItem('access_token') == null){
+            this.signIn()
+        }
+        let file = prompt("Enter file name (.md)")
+
+        while(!file.endsWith('.md')){
+            file = prompt("Enter file name (.md)\nMissing .md extension")
+        }
+        let fileRef = await fetch("https://api.github.com/repos/QuantaCSF/blog/contents/posts/"+file);
+        let fileSHA = await fileRef.json();
+        if(fileRef.status != 404){
+            if(confirm("Este archivo ya existe, deseas sobreescribir")){
+                doUpload = false
+            }
+        }
+        let body = {
+            message: 'Uploaded via altBlog UI',
+            content: btoa(content), 
+            sha: fileSHA ? fileSHA.sha : ''
+        }
+        console.log(body)
+        let request = await fetch("https://api.github.com/repos/QuantaCSF/blog/contents/posts/"+file, {
+            method: 'PUT',
+            headers: {
+                "Authorization": "Token " + window.localStorage.getItem('access_token'),
+                'Origin': '',
+                'Host': window.location.hostname
+            },
+            body: JSON.stringify(body)
+        })
+
+        let request_res = await request.json();
+        console.log(request_res)
+        if(request_res.commit.message){
+            alert(request_res.commit.message)
+        }
     }
 }
 
