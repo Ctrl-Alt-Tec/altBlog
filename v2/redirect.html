@@ -12,11 +12,18 @@
 				code: code,
 				state: state
 			}
-			console.log(req)
-			fetch('https://github.com/login/oauth/access_token', {
+			
+			fetch('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token'+new URLSearchParams(req).toString(),{
 				method: 'POST', 
-				body: JSON.stringify()
-			}).then(data=>data.text()).then(data=>{alert(data)})			
+				headers: {
+					'Origin': 'https://ctrl-alt-tec.gihtub.io/'
+				}
+			}).then(data=>data.text()).then(data=>{
+				console.log(data)
+			})
+			
+			
+			
 		</script>
 	</head>
 	<body>
