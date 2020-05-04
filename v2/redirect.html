@@ -19,8 +19,14 @@
 					'Origin': 'https://ctrl-alt-tec.gihtub.io/'
 				}
 			}).then(data=>data.text()).then(data=>{
-				console.log(data)
-				window.location.replace(state+"&"+data)
+				if(window.opener){
+					//window.location.replace(state+"&"+data)
+					window.opener.localStorage.setItem('access_token', new URLSearchParams(data).get('access_token'))
+				} else {
+					console.log(data)
+					window.location.replace(state+"&"+data)
+
+				}
 			})
 			
 			
