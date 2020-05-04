@@ -22,6 +22,7 @@
 				if(window.opener){
 					//window.location.replace(state+"&"+data)
 					window.opener.postMessage(new URLSearchParams(data).get('access_token'), state);
+					window.close();
 					window.localStorage.setItem('access_token', new URLSearchParams(data).get('access_token'))
 				} else {
 					console.log(data)
