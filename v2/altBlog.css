@@ -248,6 +248,25 @@ body{
     padding: 24px;
     font-size: 1.2em;
 }
+#editor>[name="upload"]{
+    position: fixed;
+    margin: 16px;
+    padding: 8px;
+    background: black;
+    bottom: 0; right: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 24px;
+    color: white;
+    border: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+#editor>[name="upload"] span{
+    margin: 4px;
+}
 
 @media only screen and (max-width: 600px){
     #navbar{
